@@ -1,0 +1,19 @@
+==== LICENCIA ====
+GPL v3 (http://www.gnu.org/licenses/gpl.html)
+
+==== v 0.1 ====
+Los siguientes archivos deben estar contenidos en este paquete:
+	1. matex.py
+	2. matexlib.py
+	3. README
+
+Este programa puede ser ejecutado sin necesidad de instalación, con el siguiente comando:
+	./matex.py
+NOTA: Probablemente, antes de la primera ejecución, sea necesario hacer ejecutable el programa
+	chmod +x matex.py
+
+==== REQUISITOS ====
+MateX puede ser ejecutado en cualquier ordenador que tenga lo siguiente instalado:
+	1. Python (versión recomendada: 2.7.3)
+
+NOTA: En principio puede ser ejecutado en cualquier plataforma, pero está optimizado para GNU/Linux.
