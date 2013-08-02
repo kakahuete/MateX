@@ -1,10 +1,9 @@
-#!/usr/bin/python
-#(Para que soporte tildes, eñes, ¿,...) coding: utf-8
+#coding: utf-8
 
 #        |                   MateXLibrary                |
-#        |                      v 0.1                    |
+#        |                      v 0.2                    |
 #        |                Licencia GNU GPLv3             |
-#        |              Guillemo Gómez Fonfría           |
+#        |              ©Guillemo Gómez Fonfría          |
 
 #Librerías necesarias
 from fractions import Fraction
@@ -60,8 +59,10 @@ def entero(numero):
 	else:
 		return float(numero)
 
-def aleatorio(a,b):
-	"""Genera un número aleatorio dado un rango"""
+def aleatorio(rango):
+	"""Genera un número aleatorio dado un rango (tupla)"""
+	a = rango[0]
+	b = rango[1]
 	x = randint(a,b)
 	return x
 
@@ -95,13 +96,12 @@ def raiz(a):
 	else:
 		raise RaizExcpt("Numero Negativo")
 
-def mcd(a,b):
+def mcd(nums):
 	"""Calcula el MCD de dos números
-	>>> a = 3
-	>>> b = 6
+	>>> nums = 3,6
 	3"""
-	x = a
-	y = b
+	a = int(nums[0])
+	b = int(nums[1])
 	#Algoritmo de Euclides
 	while b != 0:
 		k = b
@@ -110,11 +110,12 @@ def mcd(a,b):
 	mcd = a
 	return mcd
 
-def mcm(a,b):
+def mcm(nums):
 	"""Calcula el MCM de dos números
-	>>> a = 3
-	>>> b = 6
+	>>> nums = 3,6
 	6"""
+	a = int(nums[0])
+	b = int(nums[1])
 	x = a
 	y = b
 	#Algoritmo de Euclides
@@ -125,52 +126,101 @@ def mcm(a,b):
 	mcm = (x*y)/a
 	return mcm
 
-def sist(a,b,c,d,e,f,form=1):
+def sist(sist1,sist2):
 	"""Calcula un sistema de ecuaciones ax+by=c dx+ey=f
-	>>> a = 5
-	>>> b = 1
-	>>> c = -2
-	>>> d = -1
-	>>> e = 1
-	>>> f = 4
+	>>> sist1 = 5x+y=-2
+	>>> sist2 = -x+y=4
 	-1,3"""
-	if form == 1:
-		y = Fraction(((a*f)-(d*c)),((a*e)-(d*b)))
-		x = Fraction((c-(b*y)),a)
-	elif form == 0:
-		yb = ((float(a)*f)-(d*c))/((a*e)-(d*b))
-		y = str((a*f)-(d*c)) + '/' + str((a*e)-(d*b))
-		x = str(c-(b*yb)) + '/' + str(a)
-	return x,y
 
-def ec2(a,b,c,form=1):
+	def parser(sistema):
+		"""Devuelve las variables de un sistema de dos incognitas"""
+		sistema = sistema.split("x")
+		a = sistema[0]
+		if a in ("", "+"):
+			a = 1
+		elif a in ("-"):
+			a = -1
+		else:
+			a = int(a)
+		sistema = sistema[1]
+		sistema = sistema.split("y")
+		b = sistema[0]
+		if b in ("", "+"):
+			b = 1
+		elif b in ("-"):
+			b = -1
+		else:
+			b = int(b)
+		sistema = sistema[1]
+		sistema = sistema.split("=")
+		c = sistema[1]
+		return a,b,c
+	sist1 = parser(sist1)
+	a = int(sist1[0])
+	b = int(sist1[1])
+	c = int(sist1[2])
+	sist2 = parser(sist2)
+	d = int(sist2[0])
+	e = int(sist2[1])
+	f = int(sist2[2])
+
+	ya = ((a*f)-(d*c))/((a*e)-(d*b))
+	xa = (c-(b*ya))/a
+	try:
+		xb = Fraction((c-(b*ya)),a)
+	except:
+		xb = str((c-(b*ya))) + "/" + str(a)
+	try:
+		yb = Fraction(((a*f)-(d*c)),((a*e)-(d*b)))
+	except:
+		yb = str((a*f)-(d*c)) + "/" + str((a*e)-(d*b))
+	return xa,xb,ya,yb
+
+def ec2(ec):
 	"""Resuelve ecuaciones de segundo grado ax²+bx=c
-	>>> a = 1
-	>>> b = -55
-	>>> c = 750
+	>>> ec = "2x²-7x+3=0"
 	30,25"""
-	# d = discriminante
-	d = b**2-(4*a*c)
-	if d > 0:
-		r = raiz(d)
-		r = entero(r)
-		#Calculando 'x' (x1 y x2) como números fraccionarios
-		if form == 1:		
-			x1 = Fraction((-b+r),(2*a))
-			x2 = Fraction((-b-r),(2*a))
-		elif form == 0:		
-			x1 = str(-b+r) + '/' + str(2*a)
-			x2 = str(-b-r) + '/' + str(2*a)
-		return x1,x2
-	elif d == 0:
-		if form == 1:
-			x = Fraction((-b),(2*a))
-		elif form == 0:
-			x = str(-b) + '/' + str(2*a)
-		return x
-	elif d < 0:
-		#x no tiene un resultado entre los números reales
-		raise RaizExcpt("Numero Negativo")
+
+	ec = ec.split("=")
+	ec = ec[0]
+
+	ec = ec.split("x²")
+	a = ec[0]
+	if a in ("+",""):
+		a = 1
+	elif a in ("-"):
+		a = -1
+	else:
+		a = int(a)
+	ec = ec[1]
+
+	ec = ec.split("x")
+	b = ec[0]
+	if b in ("+", ""):
+		b = 1
+	elif b in ("-"):
+		b = -1
+	else:
+		b = int(b)
+	c = int(ec[1])
+
+	discriminante = b**2-(4*a*c)
+	if discriminante < 0:
+		raise RaizExcept("Discriminante negativo")
+	else:
+		x1a = (-b+raiz(discriminante))/(2*a)
+		try:
+			x1b = Fraction((-b+raiz(discriminante)),(2*a))
+		except:
+			x1b = str((-b+raiz(discriminante))) + "/" + str((2*a))
+		x2a = (-b-raiz(discriminante))/(2*a)
+		try:
+			x2b = Fraction((-b-raiz(discriminante)),(2*a))
+		except:
+			x2b = str((-b-raiz(discriminante))) + "/" + str((2*a))
+
+		return x1a, x1b, x2a, x2b
+
 
 def simplificador(ecuacion1):
 	"""Función que toma una ecuación ax+by=c y devuelve una tupla con a,b,c
@@ -208,12 +258,13 @@ def simplificador2(ecuacion):
 ##### PROPORCIONALIDAD ######
 #############################
 
-def regla3(a,b,c):
+def regla3(regla3):
 	"""Reglas de 3 simples directas. Proporción: 'a' es a 'b' como 'c' a 'x'.
-	>>> a = 100
-	>>> b = 50
-	>>> c = 10
+	>>> regla3 = 100,50,10
 	5"""
+	a = regla3[0]
+	b = regla3[1]
+	c = regla3[2]
 	b = float(b)
 	x = (b*c)/a
 	return x
@@ -234,7 +285,10 @@ def reglainv(a,b,c):
 
 def coulomb(desp):
 	"""Ley de Coulomb F=(k·q1·q2)/d² -> Desp: letra que el programa debe hallar"""
-	print("Ley de Coulomb en el vacío.\nq debe ir expresada en Coulombios.\nd en metros.\nF en Newtons")
+	print("Ley de Coulomb en el vacío.")
+	print("q debe ir expresada en Coulombios.")
+	print("d en metros.")
+	print("F en Newtons")
 	k = float(9e9)
 	desp = desp.lower()
 	if desp == "f":
