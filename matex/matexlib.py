@@ -90,15 +90,15 @@ def primos(maximo, minimo=2):
     return lista
 
 
-def raiz(a):
-    """Raíz cuadrada
+def raiz(a, index=2):
+    """Raíz dado un número y su índice que (por defecto es 2)
     >>> a = 16
     4"""
-    if a >= 0:
-        r = a**0.5
-        return r
+    if a >= 0 and a % 2 == 0:
+        raise RaizExcpt("Numero Negativo en un radical de exponente par")
     else:
-        raise RaizExcpt("Numero Negativo")
+        r = a**(1.0/index)
+        return r
 
 
 def mcd(nums):
