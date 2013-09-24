@@ -109,8 +109,8 @@ def main():
                 print("y = " + str(yb) + " = " + str(ya))
 
         elif writen in ("ecuacion", "ecuación"):
-            ec = raw_input("Introduce una ecuación de segundo grado" +
-                           " \"ax²+bx+c=0\"\n >>> ")
+            ec = raw_input("Introduce una ecuación de segundo grado " +
+                           "\"ax²+bx+c=0\"\n >>> ")
             try:
                 resultados = lib.ec2(ec)
                 x1a = resultados[0]
@@ -131,7 +131,7 @@ def main():
             r3 = input("En una regla de 3 directa en la que 'a' es a 'b'" +
                        " como 'c' es a 'x', escribe, separados por comas" +
                        ": a,b,c\n >>> ")
-            x = lib.regla3(r3)
+            x = lib.regla3(r3[0], r3[1], r3[2])
             print("En la regla de 3 " + str(r3[0]) + " es a " + str(r3[1]) +
                   " como " + str(r3[2]) + " es a 'x'" + " x= " + str(x))
 
@@ -139,12 +139,10 @@ def main():
             r3 = input("En una regla de 3 inversa en la que 'a' es a 'b' " +
                        "como 'c' es a 'x', escribe, separados por comas: " +
                        "a,b,c\n >>> ")
-            a = r3[0]
-            b = r3[1]
-            c = r3[2]
-            x = lib.reglainv(a, b, c)
-            print("En la regla de 3 inversa " + str(a) + " es a " + str(b) +
-                  " como " + str(c) + " es a 'x'" + " x=" + str(x))
+            x = lib.reglainv(r3[0], r3[1], r3[2])
+            print("En la regla de 3 inversa " + str(r3[0]) + " es a " + 
+                  str(r3[1]) + " como " + str(r3[2]) + " es a 'x'" + " x=" +
+                  str(x))
 
         elif writen in ("coulomb"):
             letra = raw_input("En la ley de Coulmb \"F=(k·q1·q2)/d²\"," +

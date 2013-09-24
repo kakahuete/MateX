@@ -86,7 +86,7 @@ def primos(maximo, minimo=2):
                 break
         if primo:
             lista.append(numero)
-        numero = numero + 1
+        numero += 1
     return lista
 
 
@@ -266,15 +266,13 @@ def simplificador2(ecuacion):
 
 
 # PROPORCIONALIDAD
-def regla3(regla3):
+def regla3(a, b, c):
     """Reglas de 3 simples directas. Proporción: 'a' es a 'b' como 'c' a 'x'.
-    >>> regla3 = 100,50,10
+    >>> a = 100
+    >>> b = 50
+    >>> c = 10
     5"""
-    a = regla3[0]
-    b = regla3[1]
-    c = regla3[2]
-    b = float(b)
-    x = (b*c)/a
+    x = (float(b)*c)/a
     return x
 
 
