@@ -7,25 +7,22 @@
 #        |              ©Guillemo Gómez Fonfría          |
 
 
-
 #Módulos
-import helplib
-import main
-import gui
+import matex
 from sys import argv
 
 try:
-	args = argv[1]
+    args = argv[1]
 except:
-	main.main()
+    matex.main.main()
 
 if args in ("-h", "--help"):
-	helplib.help_en()
+    matex.helplib.help_en()
 elif args in ("-a", "--ayuda"):
-	helplib.ayuda_es()
+    matex.helplib.ayuda_es()
 elif args in ("-c", "--cli"):
-	main.main()
+    matex.main.main()
 elif args in ("-g", "--gui"):
-	gui.main()
+    matex.gui.main()
 else:
-	helplib.help_en()
+    matex.helplib.help_en()
