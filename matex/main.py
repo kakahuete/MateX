@@ -56,7 +56,7 @@ def main():
             print(x)
 
         elif writen in ("aleatorio"):
-            rango = input("Introcue el número más alto y el más bajo del " +
+            rango = input("Introduce el número más alto y el más bajo del " +
                           "rango en el que quieres que se genere el número " +
                           "separados por comas. Ej: 2,5\n >>> ")
             x = lib.aleatorio(rango)
@@ -140,7 +140,7 @@ def main():
                        "como 'c' es a 'x', escribe, separados por comas: " +
                        "a,b,c\n >>> ")
             x = lib.reglainv(r3[0], r3[1], r3[2])
-            print("En la regla de 3 inversa " + str(r3[0]) + " es a " + 
+            print("En la regla de 3 inversa " + str(r3[0]) + " es a " +
                   str(r3[1]) + " como " + str(r3[2]) + " es a 'x'" + " x=" +
                   str(x))
 

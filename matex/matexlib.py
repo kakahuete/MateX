@@ -75,7 +75,7 @@ def primos(maximo, minimo=2):
     [2,3,5,7]"""
 
     lista = [2]
-    numero = minimo
+    numero = 2
 
     while numero <= maximo:
         for i in lista:
@@ -87,8 +87,25 @@ def primos(maximo, minimo=2):
         if primo:
             lista.append(numero)
         numero += 1
-    return lista
+    lst = []
+    for i in lst:
+        if i > minimo: lst.append(i)
+    return lst
 
+
+def factorizar(n):
+    """Descompone un numero entero n en factores primos
+    >>> n = 8
+    [2,2,2"]"""
+    if n != int(n):
+        raise DataTypeExcpt("El número introducido no es un entero")
+    primos = primos(n)
+    lst = []
+    for i in primos:
+        if n % i == 0:
+            lst.append(i)
+            break
+    return lst
 
 def raiz(a, index=2):
     """Raíz dado un número y su índice que (por defecto es 2)
