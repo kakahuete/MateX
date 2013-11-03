@@ -73,6 +73,8 @@ def primos(maximo, minimo=2):
     """Haya todos los números primos dado un rango
     >>> maximo = 7
     [2,3,5,7]"""
+    if maximo <= 1:
+        raise DataTypeExcpt("El valor introducido no es un entero mayor que 1")
 
     lista = [2]
     numero = 2
@@ -88,8 +90,8 @@ def primos(maximo, minimo=2):
             lista.append(numero)
         numero += 1
     lst = []
-    for i in lst:
-        if i > minimo: lst.append(i)
+    for i in lista:
+        if i >= minimo: lst.append(i)
     return lst
 
 
@@ -97,21 +99,23 @@ def factorizar(n):
     """Descompone un numero entero n en factores primos
     >>> n = 8
     [2,2,2"]"""
-    if n != int(n):
+    if n != int(n) or n < 0:
         raise DataTypeExcpt("El número introducido no es un entero")
-    primos = primos(n)
-    lst = []
-    for i in primos:
-        if n % i == 0:
-            lst.append(i)
-            break
-    return lst
+    prms = primos(n)
+    factores = []
+    for i in prms:
+        while n % i == 0:
+            factores.append(i)
+            n /= i
+    if factores == []: factores.append(n)
+    return factores
+
 
 def raiz(a, index=2):
     """Raíz dado un número y su índice que (por defecto es 2)
     >>> a = 16
     4"""
-    if a <= 0 and a % 2 == 0:
+    if a < 0 and a % 2 == 0:
         raise RaizExcpt("Numero Negativo en un radical de exponente par")
     else:
         r = a**(1.0/index)
